@@ -8,7 +8,7 @@ ENV GAME_DIR="$HOMEDIR/game" \
     GAME_ID="3796810" \
     DEBIAN_FRONTEND="noninteractive"
 
-EXPOSE 2456-2458/udp
+EXPOSE 7777/udp
 
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends --no-install-suggests tini gosu \
@@ -21,7 +21,7 @@ RUN apt-get update \
 ADD --chown="$USER":"$USER" scripts/docker-entrypoint.sh /
 
 
-VOLUME [ "$GAME_DIR", "$CONFIG_DIR", "$HOMEDIR/steamcmd", "$HOMEDIR/.config" ]
+VOLUME [ "$GAME_DIR", "$CONFIG_DIR", "$HOMEDIR/steamcmd", "$HOMEDIR/Steam" ]
 
 # See: https://github.com/docker-library/official-images#init
 ENTRYPOINT [ "tini", "-ve", "143", "--", "bash", "/docker-entrypoint.sh" ]
