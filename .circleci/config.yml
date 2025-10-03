@@ -1,0 +1,91 @@
+version: 2.1
+executors:
+  {{NAME}}:
+    docker:
+      - image: cimg/base:stable
+jobs:
+  build:
+    executor: {{NAME}}
+    environment:
+      TAG: ghcr.io/ekman/{{NAME}}
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - run:
+          name: Build image
+          command: >-
+            docker build .
+            --tag "$TAG"
+            --no-cache
+            --pull
+            --quiet
+      - run:
+          name: Save image
+          command: >-
+            mkdir -p artifacts
+            && docker save "$TAG"
+            --output artifacts/{{NAME}}.image
+      - store_artifacts:
+          path: artifacts/{{NAME}}.image
+      - persist_to_workspace:
+          root: artifacts
+          paths: [ "*" ]
+  push:
+    executor: {{NAME}}
+    environment:
+      TAG: ghcr.io/ekman/{{NAME}}
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - run:
+          name: Login to GitHub packages
+          command: echo $GITHUB_PACKAGE_TOKEN | docker login ghcr.io --username "$CIRCLE_PROJECT_USERNAME" --password-stdin
+      - attach_workspace:
+          at: artifacts
+      - run:
+          name: Load artifact
+          command: docker load --input artifacts/{{NAME}}.image
+      - run:
+          name: Push "latest" image
+          command: docker push --quiet "$TAG"
+      - run:
+          name: Push version images
+          command: |-
+            regex="([0-9]+)\.([0-9]+)\.([0-9]+)"
+
+            if [[ "$CIRCLE_TAG" =~ $regex ]]; then
+              # Construct three versions from the semantic version
+              major="${BASH_REMATCH[1]}"
+              minor="${BASH_REMATCH[2]}"
+              patch="${BASH_REMATCH[3]}"
+
+              versions=($major "$major.$minor" "$major.$minor.$patch")
+
+              for version in ${versions[@]}; do
+                docker tag "$TAG" "$TAG:$version"
+                docker push --quiet "$TAG:$version"
+              done
+            fi
+workflows:
+  {{NAME}}:
+    jobs:
+      - build:
+          context: &context [ GitHubPackages ]
+          filters: &filters
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
+      - approve_push:
+          type: approval
+          filters:
+            branches:
+              ignore: master
+      - push:
+          context: *context
+          filters: *filters
+          requires:
+            - build
+            - approve_push

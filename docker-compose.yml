@@ -1,0 +1,14 @@
+version: "3"
+services:
+  server:
+    image: ghcr.io/ekman/{{NAME}}:1
+    build:
+      context: .
+    restart: unless-stopped
+    read_only: true
+    volumes:
+      - "./config:/home/steam/config"
+      - "./game:/home/steam/game"
+    expose: [ 2456-2458:2456-2458/udp ]
+    environment:
+      - NAME=Foo
