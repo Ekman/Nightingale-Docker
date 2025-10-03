@@ -37,8 +37,7 @@ jobs:
       TAG: ghcr.io/ekman/nightingale
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.7
+      - setup_remote_docker
       - run:
           name: Login to GitHub packages
           command: echo $GITHUB_PACKAGE_TOKEN | docker login ghcr.io --username "$CIRCLE_PROJECT_USERNAME" --password-stdin
