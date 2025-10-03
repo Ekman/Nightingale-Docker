@@ -1,14 +1,16 @@
-version: "3"
 services:
-  server:
-    image: ghcr.io/ekman/{{NAME}}:1
+  nightingale:
+    image: ghcr.io/ekman/nightingale:1
     build:
       context: .
     restart: unless-stopped
     read_only: true
     volumes:
-      - "./config:/home/steam/config"
+      - "./config/Config:/home/steam/game/NWX/Config:ro"
+      - "./config/Saved:/home/steam/game/NWX/Saved"
       - "./game:/home/steam/game"
-    expose: [ 2456-2458:2456-2458/udp ]
+    expose:
+      - 8211:8211/udp
+      - 8888:8888
     environment:
       - NAME=Foo

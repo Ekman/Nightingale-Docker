@@ -1,14 +1,13 @@
-# {{NAME}} Docker
+# Nightingale Docker
 
-Run a [{{NAME}}](https://store.steampowered.com/app/892970/{{NAME}}/) dedicated server using Docker. There are plenty of other solutions out there that has way more features than this.
-I wanted a bare minimum setup.
+Run a [Nightingale](https://store.steampowered.com/app/1928980/Nightingale/) dedicated server using Docker. The purpose of this is solution is not to be complete, but rather a minimal way. I don't like over engineered solutions.
 
 ## Installation
 
 The image can be found at:
 
 ```sh
-docker pull ghcr.io/ekman/{{NAME}}:1
+docker pull ghcr.io/ekman/nightingale:1
 ```
 
 ## Configuration
@@ -17,7 +16,7 @@ View the [example `docker-compose.yml` file](docker-compose.yml) for indications
 
 ### Ports
 
-Open UDP ports `2456-2458` on your router and forward them to the hosting server/computer.
+Open UDP port `8211` and TCP port `8888` on your router and forward them to the hosting server/computer.
 
 ### Volumes
 
@@ -47,7 +46,7 @@ The game files will update when the container starts. I recommend adding the fol
 continuously restart the server:
 
 ```sh
-0 4 * * * /usr/local/bin/docker-compose --file /path/to/docker-compose.yml restart {{NAME}} >/dev/null 2>&1
+0 4 * * * /usr/local/bin/docker-compose --file /path/to/docker-compose.yml restart nightingale >/dev/null 2>&1
 ```
 
 ## Versioning
@@ -56,4 +55,4 @@ This project complies with [Semantic Versioning](https://semver.org/).
 
 ## Changelog
 
-For a complete list of changes, and how to migrate between major versions, see [releases page](https://github.com/Ekman/{{NAME}}-docker/releases).
+For a complete list of changes, and how to migrate between major versions, see [releases page](https://github.com/Ekman/Nightingale-Docker/releases).

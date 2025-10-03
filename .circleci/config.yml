@@ -1,13 +1,13 @@
 version: 2.1
 executors:
-  {{NAME}}:
+  Nightingale:
     docker:
       - image: cimg/base:stable
 jobs:
   build:
-    executor: {{NAME}}
+    executor: Nightingale
     environment:
-      TAG: ghcr.io/ekman/{{NAME}}
+      TAG: ghcr.io/ekman/Nightingale
     steps:
       - checkout
       - setup_remote_docker:
@@ -25,16 +25,16 @@ jobs:
           command: >-
             mkdir -p artifacts
             && docker save "$TAG"
-            --output artifacts/{{NAME}}.image
+            --output artifacts/Nightingale.image
       - store_artifacts:
-          path: artifacts/{{NAME}}.image
+          path: artifacts/Nightingale.image
       - persist_to_workspace:
           root: artifacts
           paths: [ "*" ]
   push:
-    executor: {{NAME}}
+    executor: Nightingale
     environment:
-      TAG: ghcr.io/ekman/{{NAME}}
+      TAG: ghcr.io/ekman/Nightingale
     steps:
       - checkout
       - setup_remote_docker:
@@ -46,7 +46,7 @@ jobs:
           at: artifacts
       - run:
           name: Load artifact
-          command: docker load --input artifacts/{{NAME}}.image
+          command: docker load --input artifacts/Nightingale.image
       - run:
           name: Push "latest" image
           command: docker push --quiet "$TAG"
@@ -69,7 +69,7 @@ jobs:
               done
             fi
 workflows:
-  {{NAME}}:
+  Nightingale:
     jobs:
       - build:
           context: &context [ GitHubPackages ]
