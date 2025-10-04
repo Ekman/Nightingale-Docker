@@ -6,10 +6,6 @@ services:
     restart: unless-stopped
     read_only: true
     volumes:
-      - "./config/Config:/home/steam/game/NWX/Config"
-      - "./config/Saved:/home/steam/game/NWX/Saved"
       - "./game:/home/steam/game"
-      - "/home/steam/Steam"
-    expose:
-      - 7777:7777/udp
-    network_mode: host
+      - "./config:/home/steam/.config"
+    expose: [ 7777:7777/udp ]
