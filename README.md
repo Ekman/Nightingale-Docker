@@ -7,7 +7,7 @@ Run a [Nightingale](https://store.steampowered.com/app/1928980/Nightingale/) ded
 The image can be found at:
 
 ```sh
-docker pull ghcr.io/ekman/nightingale:1
+docker pull ghcr.io/ekman/nightingale
 ```
 
 ## Configuration
@@ -16,7 +16,7 @@ View the [example `docker-compose.yml` file](docker-compose.yml) for indications
 
 ### Ports
 
-Open UDP port `8211` and TCP port `8888` on your router and forward them to the hosting server/computer.
+Open UDP port `7777` on your router and forward it to the hosting server/computer.
 
 ### Volumes
 
@@ -29,15 +29,17 @@ Mount all these volumes to your host.
 
 ### Configuration
 
-Configure by setting environment variables. See below for an explanation of all available environment variables.
+Configure by editing an ini file.
+1. Run the server and it will install all the files into the above volumes
+1. Stop the server and open into the `.game/NWX/Config` folder
+1. Copy the `ExampleServerSettings.ini` file to `ServerSettings.ini` in the same folder
+1. Edit the ServerSettings.ini file and update the three settings as below
 
 | Name | Description |
 | --- | --- |
-| `NAME` | Name appears in the server browser |
-| `WORLD` | The save files will be named after this |
-| `PORT` | Recommended leaving as default |
-| `PASSWORD` | Users must enter this password to enter your server |
-| `PUBLIC` | Should be `1` or `0`. If `1` then the server will appear in the server browser |
+| `StartingDifficulty` | Starting map difficulty, choose from [easy, medium, hard, extreme] |
+| `Password` | Users must enter this password to enter your server |
+| `AdminPassword` | Grants access to the kick/ban commands. Leave empty to disable admin functionality |
 
 
 ### Updating the game files
