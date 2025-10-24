@@ -1,11 +1,10 @@
 services:
   nightingale:
-    image: ghcr.io/ekman/nightingale:1
-    build:
-      context: .
+    image: ghcr.io/ekman/nightingale
     restart: unless-stopped
     read_only: true
     volumes:
       - "./game:/home/steam/game"
       - "./config:/home/steam/.config"
-    expose: [ 7777:7777/udp ]
+    ports:
+      - 7777:7777/udp
