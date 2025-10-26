@@ -9,7 +9,7 @@ Run a [Nightingale](https://store.steampowered.com/app/1928980/Nightingale/) ded
 The image can be found at:
 
 ```sh
-docker pull ghcr.io/ekman/nightingale
+docker pull ghcr.io/ekman/nightingale:1
 ```
 
 ## Configuration
