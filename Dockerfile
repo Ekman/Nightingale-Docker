@@ -1,7 +1,8 @@
 FROM cm2network/steamcmd:root
 
-LABEL org.opencontainers.image.source="https://github.com/Ekman/Nightingale"
+LABEL org.opencontainers.image.source="https://github.com/Ekman/Nightingale-Docker"
 LABEL org.opencontainers.image.authors="Niklas Ekman <nikl.ekman@gmail.com>"
+LABEL org.opencontainers.image.licenses="MIT"
 
 ENV GAME_DIR="$HOMEDIR/game" \
     GAME_ID="3796810" \
