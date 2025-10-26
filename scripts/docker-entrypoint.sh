@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 set -e
 
@@ -9,4 +9,4 @@ gosu "$USER" "$STEAMCMDDIR/steamcmd.sh" \
     validate \
     +quit
 
-gosu "$USER" bash "$GAME_DIR/NWXServer.sh"
+gosu "$USER" bash "$GAME_DIR/NWXServer.sh" $@
