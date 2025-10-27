@@ -6,7 +6,8 @@ LABEL org.opencontainers.image.licenses="MIT"
 
 ENV GAME_DIR="$HOMEDIR/game" \
     GAME_ID="3796810" \
-    DEBIAN_FRONTEND="noninteractive"
+    DEBIAN_FRONTEND="noninteractive" \
+    CONFIG_DIR="$HOMEDIR/.config"
 
 EXPOSE 7777/udp
 
@@ -16,12 +17,12 @@ RUN apt-get update \
     && apt-get autoremove --yes --purge \
     && apt-get clean \
     && apt-get autoclean \
-    && mkdir -p "$GAME_DIR" "$HOMEDIR/.config" \
-    && chown -R "$USER":"$USER" "$GAME_DIR" "$HOMEDIR/.config"
+    && mkdir -p "$GAME_DIR" "$CONFIG_DIR" \
+    && chown -R "$USER":"$USER" "$GAME_DIR" "$CONFIG_DIR"
 
 ADD scripts/docker-entrypoint.sh /
 
-VOLUME [ "$GAME_DIR", "$HOMEDIR/steamcmd", "$HOMEDIR/.config" ]
+VOLUME [ "$GAME_DIR", "$HOMEDIR/steamcmd", "$CONFIG_DIR" ]
 
 # See: https://github.com/docker-library/official-images#init
 ENTRYPOINT [ "tini", "-ve", "143", "--", "bash", "/docker-entrypoint.sh" ]

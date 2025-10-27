@@ -9,4 +9,6 @@ gosu "$USER" "$STEAMCMDDIR/steamcmd.sh" \
     validate \
     +quit
 
+chown "$USER": -R "$CONFIG_DIR"
+
 gosu "$USER" bash "$GAME_DIR/NWXServer.sh" $@
