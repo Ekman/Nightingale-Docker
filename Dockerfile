@@ -15,9 +15,11 @@ RUN apt-get update \
     && apt-get install --yes --no-install-recommends --no-install-suggests tini gosu \
     && apt-get autoremove --yes --purge \
     && apt-get clean \
-    && apt-get autoclean
+    && apt-get autoclean \
+    && mkdir -p "$GAME_DIR" "$HOMEDIR/.config" \
+    && chown -R "$USER":"$USER" "$GAME_DIR" "$HOMEDIR/.config"
 
-ADD --chown="$USER":"$USER" scripts/docker-entrypoint.sh /
+ADD scripts/docker-entrypoint.sh /
 
 VOLUME [ "$GAME_DIR", "$HOMEDIR/steamcmd", "$HOMEDIR/.config" ]
 
