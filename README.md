@@ -1,7 +1,5 @@
 # Nightingale Docker
 
-> Sorry for the sloppy mess in the repository. I spent an evening on it and never fully got it to work. Haven't had the time to look at it again and I did not expect people would actually start using this that quickly, and apparently it works! I'll sit down sometime soon again and do some proper maintenance, such as tagging.
-
 Run a [Nightingale](https://store.steampowered.com/app/1928980/Nightingale/) dedicated server using Docker. The purpose of this is solution is not to be complete, but rather a minimal way. I don't like over engineered solutions. [Information on how to host a dedicated server can be found on the developers hompage](https://playnightingale.com/dedicated-servers).
 
 ## Installation
