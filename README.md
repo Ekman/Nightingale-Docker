@@ -26,16 +26,15 @@ Mount all these volumes to your host.
 
 | Directory inside container | Description |
 | --- | --- |
-| `/home/steam/config` | Contains all save data |
 | `/home/steam/game` | Contains the game files |
 
 ### Configuration
 
 Configure by editing an ini file.
-1. Run the server and it will install all the files into the above volumes
-1. Stop the server and open into the `.game/NWX/Config` folder
-1. Copy the `ExampleServerSettings.ini` file to `ServerSettings.ini` in the same folder
-1. Edit the ServerSettings.ini file and update the three settings as below
+1. Run the server and it will install all the files into the above volumes.
+1. Stop the server and open into the `.game/NWX/Config` folder..
+1. Copy the `ExampleServerSettings.ini` file to `ServerSettings.ini` in the same folder.
+1. Edit the `ServerSettings.ini` file and update the three settings as below.
 
 | Name | Description |
 | --- | --- |

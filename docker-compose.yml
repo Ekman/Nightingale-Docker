@@ -5,6 +5,5 @@ services:
     read_only: true
     volumes:
       - "./game:/home/steam/game"
-      - "./config:/home/steam/.config"
     ports:
       - 7777:7777/udp
